@@ -2,7 +2,7 @@
   Windows: https://git-scm.com/download/win
   Mac: https://git-scm.com/download/mac
   
-# Create a folder somewhere on your drive called 'MikeEmoMaze'.
+  Create a folder somewhere on your drive called 'MikeEmoMaze'.
 
 # Clone this repository:
   (Open your git client, and select 'Clone Repository'
