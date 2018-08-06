@@ -154,6 +154,7 @@ class Maze {
         const result = {
             totalRows: this.matrix.length,
             totalColumns: this.matrix[0].length,
+            originalMazeString: this.rawMazeString,
             matrix: this.matrix            
         };
        

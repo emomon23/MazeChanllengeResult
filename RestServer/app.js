@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParse from 'body-parser';
+import cors from 'cors';
 import path from 'path';
 import MazeRoute from './src/routes/MazeRoute';
 
@@ -9,6 +10,7 @@ const buildURL = (version, path) => `/api/${version}/${path}`;
 
 const BASE_MAZE_ROUTE = buildURL('v1', 'mazes');
 
+server.use(cors());
 server.use(bodyParse.json());
 server.use(BASE_MAZE_ROUTE, MazeRoute);
 

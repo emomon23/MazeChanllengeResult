@@ -1,0 +1,8 @@
+.App {
+  text-align: center;
+}
+
+.Maze-Cell {
+  width: 20;
+  color: 'red'
+}
