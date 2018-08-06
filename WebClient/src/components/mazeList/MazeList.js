@@ -11,7 +11,8 @@ class MazeList extends Component {
         availableMazeNames: [],
         currentlySelectedMazeName: '',
         currentMazeSolution: [],
-        isLoading: false
+        isLoading: false,
+        errorMessage: ''
     };
 
     componentDidMount() {
@@ -25,14 +26,17 @@ class MazeList extends Component {
     }
 
     onMazeNameChanged(selectedMazeName) {
+
         const {value: mazeName} = selectedMazeName;
 
-        this.setState({isLoading: true, currentlySelectedMazeName: selectedMazeName});
-
+        this.setState({errorMessage: '', isLoading: true, currentlySelectedMazeName: selectedMazeName});
         this.mazeService.getMazeSolution(mazeName)
             .then((result) => {
                const tempArray = [result];
                this.setState({currentMazeSolution: tempArray});
+            })
+            .catch((error) => {
+                this.setState({errorMessage: error.message || error});
             })
             .finally(() => {
                 this.setState({isLoading: false});
@@ -40,14 +44,20 @@ class MazeList extends Component {
     }
 
     render(){
-        return (<div>
-                    <div style={styles.NewBlockStyle}>
+        return (<div style={styles.MazeListRootContainer}>
+
+                    <div style={styles.ErrorMessage}>
+                        { this.state.errorMessage} 
+                    </div>
+
+                    <div style={styles.MazeNameListContainer}>
                         <MazeNameList onMazeNameSelected={this.onMazeNameChanged.bind(this)}
                                 source={this.state.availableMazeNames}
                                 value={this.state.currentlySelectedMazeName} />
                     </div>
                  
-                    <div style={styles.NewBlockStyle}>
+                       
+                    <div style={styles.MazeRenderContainer}>
                         <MazeRenderer dataSource={this.state.currentMazeSolution} />
                     </div>
                </div>);

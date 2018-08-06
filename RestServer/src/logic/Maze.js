@@ -61,7 +61,7 @@ class Maze {
     constructor(mazeString) {
         if (mazeString.indexOf('A') === -1 || mazeString.indexOf('B') === -1){
             console.log(`Can't find start and or end of maze.  ${mazeString}`);
-            throw 'Maze is mising a Starting Points and/or a Destination';
+            throw 'Invalid Maze!  Missing a Starting Point and/or a Destination Point';
         }
         
         const { matrix, startingPoint, endingPoint } = convertMazeStringToMatix(mazeString);

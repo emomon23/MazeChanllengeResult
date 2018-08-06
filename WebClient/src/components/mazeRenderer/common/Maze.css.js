@@ -1,7 +1,7 @@
 export default {
-    MazeContainer: {
+    MazeRendererRootContainer: {
         float: 'clear',
-        marginTop:50
+        marginTop: 50
     },
     MazeRow: {
         height: 30

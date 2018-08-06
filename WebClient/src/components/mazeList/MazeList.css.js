@@ -1,7 +1,19 @@
 export default {
-    MazeListNameContainerStyle: {
+    MazeListRootContainer: {
+        float: 'clear',
+        marginLeft: 10
+    },
+    MazeNameListRootContainer: {
         width: '90%',
         float: 'clear'
+    },
+    MazeNameListContainer: {
+        float: 'clear',
+        height: 20
+    },
+    MazeListNameElementContainerStyle: {
+        width: 500,
+        float: 'left'
     },
     MazeListNameLabelStyle: {
         float: 'left',
@@ -9,16 +21,14 @@ export default {
         paddingTop: 10,
         marginRight: 10
     },
-    MazeListNameElementContainerStyle: {
-        float: 'left',
-        width: 300
-    },
     MazeListNameButtonStyle: {
         height: 35,
         width: 110,
         marginLeft: 20
     },
-    NewBlockStyle: {
+    ErrorMessage: {
+        color: 'red',
+        marginTop: 10,
         float: 'clear'
     }
 }

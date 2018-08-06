@@ -30,6 +30,8 @@ class MazeRenderer extends Component {
 
         return (
             <span>
+               Total Rows: {this.mazeData.mazeMap.totalRows}<br/>
+               Total Cols: {this.mazeData.mazeMap.totalColumns}<br/>
                Steps to Solve: {this.mazeData.stepsToResolve}
             </span>
         );
@@ -40,7 +42,7 @@ class MazeRenderer extends Component {
       this.mazeData = this.props.dataSource[0];
 
       return (
-        <div style={styles.MazeContainer}>
+        <div style={styles.MazeRendererRootContainer}>
             { this.renderSummary() }
 
             <div>

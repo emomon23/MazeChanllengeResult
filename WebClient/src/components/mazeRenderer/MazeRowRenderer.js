@@ -45,8 +45,8 @@ class MazeRowRenderer extends Component {
 
     render() {
         return (<tr style={styles.MazeRow}>
-            {this.renderColumns()}
-        </tr>);
+                {this.renderColumns()}
+            </tr>);
     }
 }
 

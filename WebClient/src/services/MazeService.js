@@ -32,11 +32,23 @@ export default class MazeService {
 
     getMazeSolution(mazeName) {
         const url = `${this.BASE_URL}/solve/${mazeName}`;
+        let status=0;
+
         const promise = new Promise((resolve, reject) => {
             fetch(url)
-                .then((response) => response.json())
+                .then((response) => {
+                    status = response.status;
+                    if (response.status == 200){
+                        return response.json();
+                    }
+                    
+                    return response.text();
+                })
                 .then((data) => {
-                    resolve(data);
+                    if (status == 200)
+                        resolve(data);
+                    else 
+                        reject(data);
                 })
                 .catch((error) => {
                     reject(error);
@@ -67,10 +79,15 @@ export default class MazeService {
        const promise = new Promise((resolve, reject) => {
         
        fetch(this.BASE_URL, payload)
-            .then((response) => response.json())
-            .then((data) => {
-                resolve(data);
-            })
+            .then((response) => response.text()
+            .then((text) => {
+                if (response.status != 200){
+                    reject(text);
+                }  
+                else {
+                    resolve();
+                }
+            }))
             .catch((error) => {
                 reject(error);
             })

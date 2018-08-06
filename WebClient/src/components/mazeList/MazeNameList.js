@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component, } from 'react';
 import Dropdown from 'react-dropdown'
+import {withRouter} from 'react-router-dom'
 import 'react-dropdown/style.css';
 import styles from './MazeList.css';
 
@@ -8,9 +9,13 @@ class MazeNameList extends Component {
         this.props.onMazeNameSelected(value);
     }
 
+    onAddNewClick() {
+        this.props.history.push('/new');
+    }
+
     render() {
         return (
-            <div style={styles.MazeListNameContainerStyle}>
+            <div style={styles.MazeNameListRootContainer}>
                 <div style={styles.MazeListNameLabelStyle}>
                     Available Mazes
                 </div>
@@ -24,7 +29,8 @@ class MazeNameList extends Component {
                 </div>
 
                 <div style={styles.MazeListNameElementContainerStyle}>
-                    <button style={styles.MazeListNameButtonStyle}>
+                    <button onClick={this.onAddNewClick.bind(this)}
+                         style={styles.MazeListNameButtonStyle}>
                         New Maze!
                     </button>
                 </div>
@@ -33,4 +39,4 @@ class MazeNameList extends Component {
     }
 }
 
-export default MazeNameList;
+export default withRouter(MazeNameList);

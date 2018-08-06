@@ -8,7 +8,6 @@ const router = express.Router();
 const mazeManager = new MazeManager('src/data/Mazes');
 
 router.get('/', (request, response) => {
-    console.log('get all maze names route called');
 
     mazeManager.getAvailableMazeNames()
         .then((fileNames) => {
@@ -16,7 +15,7 @@ router.get('/', (request, response) => {
         })
         .catch((error) => {
             response.status(error.status || 500)
-                    .send(error.message || error);
+                    .json({status: error.message || error});
         });
 }); 
 

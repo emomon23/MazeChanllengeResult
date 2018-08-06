@@ -1,8 +1,7 @@
 import React from 'react';
-import './App.css';
-
 import MazeList from './components/mazeList/MazeList';
+//import NewMaze from './components/newMaze/NewMaze';
 
-const App = ()=> <MazeList />
-
+const App = () =>  <div>WTF</div>
+  
 export default App;
