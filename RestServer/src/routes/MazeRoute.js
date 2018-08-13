@@ -7,58 +7,58 @@ import Maze from '../logic/Maze';
 const router = express.Router();
 const mazeManager = new MazeManager('src/data/Mazes');
 
-router.get('/', (request, response) => {
+const returnError = (response, error, status=500) => {
+    response.status(status).send(error.message || error);
+}
 
-    mazeManager.getAvailableMazeNames()
-        .then((fileNames) => {
-            response.json({ mazes: fileNames });
-        })
-        .catch((error) => {
-            response.status(error.status || 500)
-                    .json({status: error.message || error});
-        });
+router.get('/', async (request, response) => {
+    try {
+        const fileNames = await mazeManager.getAvailableMazeNames();
+        response.json({ mazes: fileNames });
+    }
+    catch(error) {
+        returnError(response, error);
+    }
 }); 
 
-router.get(`/:name`, (request, response) => {
-    const mazeName = request.params.name;
-    mazeManager.getMaze(mazeName)
-        .then((mazeDefinition) => {
-            response.json(mazeDefinition);
-        })
-        .catch((error) => {
-            response.status(error.status || 404)
-                    .send(error.message || error);
-        });
+router.get(`/:name`, async (request, response) => {
+    try {
+        const mazeName = request.params.name;
+        const mazeDefinition = await mazeManager.getMaze(mazeName);
+
+        response.json(mazeDefinition);
+    }
+    catch(error) {
+        returnError(response, error, 401);
+    }
 });
 
 
-router.get('/solve/:name', (request, response) => {
-    const mazeName = request.params.name;
-
-    mazeManager.getMaze(mazeName)
-        .then((mazeDefinition) => {
-            const maze = new Maze(mazeDefinition.mazeString);
-            const result = MazeRunner.solveMaze(maze);
-            response.json(result);
-        })
-        .catch((error) => {
-            response.status(error.status || 500)
-                    .send(error.message || error);
-        });
+router.get('/solve/:name', async (request, response) => {
+    try {
+        const mazeName = request.params.name;
+        const mazeDefinition = await mazeManager.getMaze(mazeName);
+        const maze = new Maze(mazeDefinition.mazeString);
+    
+        const mazeSolution = MazeRunner.solveMaze(maze);
+        response.json(mazeSolution);
+    }
+    catch(error) {
+        returnError(response, error);
+    }
 });
 
 
-router.post('/', (request, response) => {
-    const mazeDefinition = request.body;
+router.post('/', async (request, response) => {
+    try {
+        const mazeDefinition = request.body;
+        await mazeManager.createNewMaze(mazeDefinition);
 
-    mazeManager.createNewMaze(mazeDefinition)
-        .then(() => {
-            response.status(200).send('OK');
-        })
-        .catch((error) => {
-            response.status(error.status || 500)
-                    .send(error.message || error);
-        });
-});
+        response.status(200).send('OK');
+    }
+    catch(error) {
+        returnError(response, error);
+    }
+});     
 
 module.exports = router;
