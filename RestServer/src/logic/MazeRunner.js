@@ -25,9 +25,9 @@ const createMazeMapAndSummary = (maze, shortestPath) => {
 
 const popOffQueue = (queue) => {
     if (queue && queue.length > 0) {
-        const point = queue[queue.length - 1];
-        queue.splice(queue.length - 1);
-
+        const point = queue[0];
+        queue.splice(0, 1);
+        
         return point;
     }
 }
