@@ -59,6 +59,7 @@ const findShortestPath = (maze) => {
             ##2#4#
             ##123#
 
+            (Note: All of the '#' (walls), are getting set to -1 just to make math checks easier)
     */
     while (queue.length > 0) {
         const point = popOffQueue(queue);
