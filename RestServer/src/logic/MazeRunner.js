@@ -40,7 +40,26 @@ const findShortestPath = (maze) => {
     const queue = [];
  
     queue.push(startingPoint);
+  
+    //Number the start poisition '1' and every 'OPEN' space with how many spaces it is from 'START'
+    /*For example:
+            ##E###
+            ##   #   
+            ## # #
+            ## # #   
+            ## # #
+            ##$  #
 
+            BECOMES
+
+            ##6###
+            ##587#  //Since '5' is lower then '9', leave it '5'
+            ##4#6#
+            ##3#5#
+            ##2#4#
+            ##123#
+
+    */
     while (queue.length > 0) {
         const point = popOffQueue(queue);
         if (maze.isThisTheEndingPoint(point)) {
@@ -70,6 +89,17 @@ const findShortestPath = (maze) => {
     const shortestPath = [];
     let pointToAdd = endingPoint;
 
+     /* Start at the End (highest number), make this is your 'current position' (here the value is now '6')
+        Find the space that is one less than the current position and 'go there'
+        Repeat until you arrive at the space with a value of '1' - this is the start position
+        
+        ##6###
+        ##587#  //Since '5' is lower then '9', leave it '5'
+        ##4#6#
+        ##3#5#
+        ##2#4#
+        ##123#
+    */
     while (!(maze.isThisTheStartingPoint(pointToAdd))) {
         shortestPath.push(pointToAdd);
         const level = levelArray[pointToAdd.x][pointToAdd.y];
